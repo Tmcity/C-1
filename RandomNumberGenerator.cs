@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RandomNumberGenerator
 {
-    internal class RandomNumber
+    class RandomNumber
     {
         public static void Generator()
         {

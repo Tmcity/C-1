@@ -9,6 +9,7 @@ using Delay;
 using RandomNumberGenerator;
 using LfCMref;
 using CharacterToLnteger;
+using Score;
 // ReSharper disable CheckNamespace
 
 namespace Program
@@ -31,6 +32,7 @@ namespace Program
             nameList.Add("5.交换数字位置");
             nameList.Add("6.使用ref传递变量");
             nameList.Add("7.字符串转整数");
+            nameList.Add("8.分数管理系统");
 
             foreach (var variable in nameList)
             {
@@ -80,13 +82,36 @@ namespace Program
             }
             else if (select == 6)
             {
-                //============================使用ref传递变量============================//
+                //===========================使用ref传递变量============================//
                 PileOfStuff.AddAfterAnyCharacter(Console.ReadLine());
             }
             else if (select == 7)
             {
-                //============================字符串转整数============================//
+                //=============================字符串转整数=============================//
                 Conversion.Convert();
+            }
+            else if (select == 8)
+            {
+                //=============================分数管理系统=============================//
+                int num;
+                Console.WriteLine("请输入要录入的人数:");
+                Console.WriteLine("==========");
+                num = int.Parse(Console.ReadLine());
+                Console.WriteLine("==========");
+                for (int i = 0; i < num; i++)
+                {
+                    Console.WriteLine("请输入第{0}个人的名字:", i + 1);
+                    string n = Console.ReadLine();
+                    Console.WriteLine("请输入第{0}个人的分数:", i + 1);
+                    int s = int.Parse(Console.ReadLine());
+                    Console.WriteLine("==========");
+                    ScoreEntry.Add(n,s);
+                }
+                Console.WriteLine("输入所要查询的学生:");
+                Console.WriteLine("==========");
+                string name = Console.ReadLine();
+                Console.WriteLine("==========");
+                Console.WriteLine("分数为{0}",ScoreEntry.GitScore(name)); 
             }
             else
             {
