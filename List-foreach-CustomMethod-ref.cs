@@ -17,7 +17,7 @@ namespace LfCMref
             a[1] = temp;
 
         }
-        public static void Swish2(ref string? m)
+        public static void Swish2(ref string m)
         {
             m += "233";
         }
@@ -53,9 +53,10 @@ namespace LfCMref
 
         }
 
-        public static void AddAfterAnyCharacter(string? m)
+        public static void AddAfterAnyCharacter(string m)
         {
             //======================列表、foreach、自定义方法、ref=====================//
+            // ref:按引用传递参数
 
             Swish2(ref m);
             Console.WriteLine("传递到函数后的字符串为:" + m);
