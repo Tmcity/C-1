@@ -10,6 +10,7 @@ using RandomNumberGenerator;
 using LfCMref;
 using CharacterToLnteger;
 using Score;
+using Overload;
 // ReSharper disable CheckNamespace
 
 namespace Program
@@ -33,6 +34,7 @@ namespace Program
             nameList.Add("6.使用ref传递变量");
             nameList.Add("7.字符串转整数");
             nameList.Add("8.分数管理系统");
+            nameList.Add("9.方法的重载");
 
             foreach (var variable in nameList)
             {
@@ -112,6 +114,36 @@ namespace Program
                 string name = Console.ReadLine();
                 Console.WriteLine("==========");
                 Console.WriteLine("分数为{0}",ScoreEntry.GitScore(name)); 
+            }
+            else if (select == 9)
+            {
+                //==============================方法的重载=============================//
+                int t1 =1;
+                float t2=2.6f;
+                string t3="第三";
+                char t4='四';
+
+                Console.WriteLine("选择测试类型:");
+                Console.WriteLine("1.int 2.float 3.string 4.char");
+                int temp = int.Parse(Console.ReadLine());
+
+                if (temp==1)
+                {
+                    Console.WriteLine(test.Test(t1));
+                }
+                if (temp == 2)
+                {
+                    Console.WriteLine(test.Test(t2));
+                }
+                if (temp == 3)
+                {
+                    Console.WriteLine(test.Test(t3));
+                }
+                if (temp == 4)
+                {
+                    Console.WriteLine(test.Test(t4));
+
+                }
             }
             else
             {

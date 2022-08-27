@@ -2,11 +2,24 @@
 
 public class ScoreEntry
 {
+
+    /*private string Name2;
+    private float Score2;
+    public ScoreEntry(string n,float s)
+    {
+        Name2 = n;
+        Score2 = s;
+    }
+
+    public ScoreEntry p2 = new ScoreEntry("2", 5);*/
+
+
     public struct grades
     {
         public string Name;
         public int Score;
     }
+
 
     public static List<grades> n = new List<grades>();
 
