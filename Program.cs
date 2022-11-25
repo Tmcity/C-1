@@ -228,6 +228,36 @@ namespace Program
                 int j = (++k) + (++k);
                 Console.WriteLine(j);
             }
+            else if (select == 9)
+            {
+                //==============================方法的重载=============================//
+                int t1 =1;
+                float t2=2.6f;
+                string t3="第三";
+                char t4='四';
+
+                Console.WriteLine("选择测试类型:");
+                Console.WriteLine("1.int 2.float 3.string 4.char");
+                int temp = int.Parse(Console.ReadLine());
+
+                if (temp==1)
+                {
+                    Console.WriteLine(test.Test(t1));
+                }
+                if (temp == 2)
+                {
+                    Console.WriteLine(test.Test(t2));
+                }
+                if (temp == 3)
+                {
+                    Console.WriteLine(test.Test(t3));
+                }
+                if (temp == 4)
+                {
+                    Console.WriteLine(test.Test(t4));
+
+                }
+            }
             else
             {
                 Console.WriteLine("输入错误，请重新输入");
