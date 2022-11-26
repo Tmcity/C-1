@@ -111,10 +111,10 @@ namespace Program
                     Class.Add(new ScoreEntry("Class5"));
                     int num;
                     string SchoolName;
-                    //Console.WriteLine("录入成绩选择1，查询成绩选择2");
-                    //string a = Console.ReadLine();
-                    //if (a == "1")
-                    //{
+                    Console.WriteLine("录入成绩选择1，查询成绩选择2");
+                    string a = Console.ReadLine();
+                    if (a == "1")
+                    {
                         Console.WriteLine("请输入班级:");
                         Console.WriteLine("==========");
                         SchoolName = Console.ReadLine();
@@ -139,7 +139,7 @@ namespace Program
                                     va.Add(n,s);
                                 }
                                 va.SaveCSV("F:\\桌面\\" + SchoolName + ".csv");
-                                Console.WriteLine("分数已导出到: F:\\桌面\\" + SchoolName + ".csv");
+                                Console.WriteLine($"分数已导出到: F:\\桌面\\{SchoolName}.csv");
                                 Console.WriteLine("==========");
                             }
                         }
@@ -148,9 +148,9 @@ namespace Program
                             throw new CustomError("找不到班级！");
                         }
                         
-                    //}
-                    //else if(a == "2")
-                    //{
+                    }
+                    else if(a == "2")
+                    {
                         Console.WriteLine("请输入学校:");
                         Console.WriteLine("==========");
                         SchoolName = Console.ReadLine();
@@ -164,7 +164,7 @@ namespace Program
                                 Console.WriteLine("==========");
                                 string name = Console.ReadLine();
                                 Console.WriteLine("==========");
-                                Console.WriteLine("分数为{0}", va.GitScore(name));
+                                Console.WriteLine("分数为{0}", va.GitScore($"F:\\桌面\\{SchoolName}.csv",name));
                                 flag2= true;
                             }
                         }
@@ -173,7 +173,7 @@ namespace Program
                             throw new CustomError("找不到班级！");
                         }
                     }
-                //}
+                }
                 catch(Exception ex)
                 {
                     // 让用户知道出了什么问题

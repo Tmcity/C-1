@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows.Markup;
 using static FileR_W.FileRW;
@@ -7,17 +8,6 @@ namespace Score;
 
 public class ScoreEntry
 {
-
-    /*private string Name2;
-    private float Score2;
-    public ScoreEntry(string n,float s)
-    {
-        Name2 = n;
-        Score2 = s;
-    }
-
-    public ScoreEntry p2 = new ScoreEntry("2", 5);*/
-
     public string School;
     public ScoreEntry(string school)
     {
@@ -64,23 +54,14 @@ public class ScoreEntry
     }
 
 
-    //private static List<grades> n = new List<grades>();
-
     public List<grades> N = new List<grades>();
 
     public void SaveCSV(string filePath)
     {
-
-        //N.Add(new grade2 { Name = "Tom", Score = 38 });
-        //N.Add(new grade2 { Name = "Ava", Score = 76 });
-        //N.Add(new grade2 { Name = "Mia", Score = 23 });
-        //N.Add(new grade2 { Name = "Jom", Score = 87 });
-
         //foreach (FieldInfo item in )
         //{
         //    Console.WriteLine(item.Name/* + " " + item.GetValue(N[0])*/);
         //}
-
         FieldInfo[] fieldInfos = typeof(grades).GetFields();
         foreach (var v in N)
         {
@@ -100,11 +81,19 @@ public class ScoreEntry
         StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
 
         //写入列名
-        string data = "";// NamePro[0].Name+","+ NamePro[1].Name;
-
+        string data = "";
+        bool isEnd=false;
         foreach (FieldInfo fieldInfo in fieldInfos)
         {
-            data += fieldInfo.Name + ",";
+            if (isEnd == false)
+            {
+                data += fieldInfo.Name + ",";
+                isEnd = true;
+            }
+            else
+            {
+                data += fieldInfo.Name;
+            }
         }
         sw.WriteLine(data);
 
@@ -112,11 +101,21 @@ public class ScoreEntry
         string data2 = "";
         foreach (var v in N)
         {
+            isEnd = false;
             foreach (FieldInfo fieldInfo in fieldInfos)
             {
-                data2 += fieldInfo.GetValue(v) + ",";
+                if (isEnd == false)
+                {
+                    data2 += fieldInfo.GetValue(v) + ",";
+                    isEnd = true;
+                }
+                else
+                {
+                    data2 += fieldInfo.GetValue(v);
+                }
             }
             sw.WriteLine(data2);
+
             data2 = "";
         }
 
@@ -132,26 +131,98 @@ public class ScoreEntry
         N.Add(temp);
     }
 
-    public int GitScore(string name)
+    public int GitScore(string filePath,string name)
     {
         int score = 0;
-        bool flag=false;
-        foreach (grades i in N)
+
+        if (N.Any() == true)
         {
-            if (i.GitName == name)
+            bool flag = false;
+            foreach (grades i in N)
             {
-                score = i.GetScore;
-                flag = true;
-                break;
+                if (i.GitName == name)
+                {
+                    score = i.GetScore;
+                    flag = true;
+                    break;
+                }
             }
-        }
-        if (flag)
-        {
-            return score;
+            if (flag)
+            {
+                Console.WriteLine("从内存中找到成绩单");
+                Console.WriteLine("==========");
+                return score;
+            }
+            else
+            {
+                throw new Objectnotfound("找不到对象!");
+            }
         }
         else
         {
-            throw new Objectnotfound("找不到对象!");
+            string[] nameStr=ReadCSV(filePath).Item1;
+            string[] scoreStr=ReadCSV(filePath).Item2;
+
+            bool flag = false;
+            for(int i=0; i < nameStr.Length; i++)
+            {
+                if (nameStr[i] == name)
+                {
+                    score = int.Parse(scoreStr[i]);
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                Console.WriteLine("从文件中读取到成绩单");
+                Console.WriteLine("==========");
+                return score;
+            }
+            else
+            {
+                throw new Objectnotfound("找不到对象!");
+            }
         }
     }
+
+    public (string[],string[]) ReadCSV(string filePath)
+    {
+        string[] formsStr = File.ReadAllLines(filePath);
+        string[] nameStr=new string[formsStr.Length-1];
+        string[] scoreStr = new string[formsStr.Length - 1];
+        int ii = 0;
+        bool isFirstname = false;
+
+        foreach (string fS in formsStr)
+        {
+            string[] lineStr=fS.Split(',');
+            if (lineStr[0] == "Name")
+            {
+                isFirstname = true;
+            }
+            else if (lineStr[0] == "Score")
+            {
+                break;
+            }
+            else
+            {
+                if (isFirstname == true)
+                {
+                    nameStr[ii] = lineStr[0];
+                    scoreStr[ii] = lineStr[1];
+                }
+                else
+                {
+                    nameStr[ii] = lineStr[1];
+                    scoreStr[ii] = lineStr[0];
+                }
+                ii++;
+            }
+        }
+
+        return (nameStr, scoreStr);
+
+    }
+
 }
