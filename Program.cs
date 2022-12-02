@@ -12,6 +12,8 @@ using Score;
 using Overload;
 using System.ComponentModel;
 using FileR_W;
+using Delegator;
+using static Delegator.Delegate;
 
 namespace Program
 {
@@ -41,6 +43,7 @@ namespace Program
             nameList.Add("8.分数管理系统");
             nameList.Add("9.方法的重载");
             nameList.Add("10.文件读写");
+            nameList.Add("11.委托");
 
             foreach (var variable in nameList)
             {
@@ -191,6 +194,7 @@ namespace Program
                 string t3="第三";
                 char t4='四';
 
+                test.TestMain();
                 Console.WriteLine("选择测试类型:");
                 Console.WriteLine("1.int 2.float 3.string 4.char");
                 int temp = int.Parse(Console.ReadLine());
@@ -213,15 +217,42 @@ namespace Program
 
                 }
             }
-            /*else if (select == 10)
+            else if (select == 10)
             {
+                //==============================文件读取=============================//
                 string pachstr,str;
                 pachstr=Console.ReadLine();
-                //str=Console.ReadLine();
-                //FileRW.FileWrite(pachstr, str);
-                FileRW.SaveCSV(pachstr);
-                //Console.WriteLine(FileRW.FileRead(pachstr));
-            }*/
+                str=Console.ReadLine();
+                FileRW.FileWrite(pachstr, str);
+                //FileRW.SaveCSV(pachstr);
+                Console.WriteLine(FileRW.FileRead(pachstr));
+            }
+            else if(select == 11)
+            {
+                //================================委托===============================//
+                int num1,num2;
+                Output("输入要对比的两个数字:",Fput);
+                num1= int.Parse(Console.ReadLine());
+                num2= int.Parse(Console.ReadLine());
+                Output("选择对比模式: Max、Min", Fput);
+                string str = Console.ReadLine();
+                if (str == "Max")
+                {
+                    NumbersDetermine(num1, num2, Max);
+                }
+                else if (str == "Min")
+                {
+                    NumbersDetermine(num1, num2, Min);
+                }
+                int[] ints = { 1, 3, 5, 7 };
+                Transform(ints, Square);
+                foreach(var v in ints)
+                {
+                    Output(v,Fput);
+                }
+                Release.Send();
+
+            }
             else if(select == 99)
             {
                 int k = 1;

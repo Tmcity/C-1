@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Reflection;
-using System.Runtime.Serialization.Formatters;
+﻿using System.Text;
 
 namespace FileR_W
 {
@@ -20,10 +13,11 @@ namespace FileR_W
             }
 
             //创建文件
-            //using FileStream fs=File.Create(path);
-            FileStream fs = File.Create(path);
-            AddText(fs, str);
-            fs.Dispose();
+            using (FileStream fs = File.Create(path))
+            {
+                AddText(fs, str);
+            }
+            //fs.Dispose();
             //fs.Flush();             //清除此流的缓冲区，使得所有缓冲数据都写入到文件中
         }
 
@@ -47,83 +41,5 @@ namespace FileR_W
                                                       //Write(Byte[],offset,count)将Byte[]数组中的内容写入到当前文件流
                                                       //offset:从数组中开始读取的位置    count:从数组中读取的长度
         }
-
-        //public static List<grade2> N = new List<grade2>();
-
-        //public static void SaveCSV(grade2 N,string filePath)
-        //{
-
-        //    //N.Add(new grade2 { Name = "Tom", Score = 38 });
-        //    //N.Add(new grade2 { Name = "Ava", Score = 76 });
-        //    //N.Add(new grade2 { Name = "Mia", Score = 23 });
-        //    //N.Add(new grade2 { Name = "Jom", Score = 87 });
-            
-        //    //foreach (FieldInfo item in )
-        //    //{
-        //    //    Console.WriteLine(item.Name/* + " " + item.GetValue(N[0])*/);
-        //    //}
-
-        //    FieldInfo[] fieldInfos = typeof(grade2).GetFields();
-        //    foreach (var v in N)
-        //    {
-        //        foreach (FieldInfo fieldInfo in fieldInfos)
-        //        {
-        //            Console.WriteLine(fieldInfo.Name + ": " + fieldInfo.GetValue(v));
-        //        }
-        //    }
-
-        //    FileInfo fi = new FileInfo(filePath);
-        //    if (fi.Directory.Exists)
-        //    {
-        //        fi.Directory.Create();  //文件不存在，创建文件
-        //    }
-
-        //    FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write);
-        //    StreamWriter sw = new StreamWriter(fs, Encoding.UTF8);
-
-        //    //写入列名
-        //    string data="";// NamePro[0].Name+","+ NamePro[1].Name;
-
-        //    foreach (FieldInfo fieldInfo in fieldInfos)
-        //    {
-        //        data += fieldInfo.Name+",";
-        //    }
-        //    sw.WriteLine(data);
-
-        //    //写入行数据
-        //    string data2 = "";
-        //    foreach (var v in N)
-        //    {
-        //        foreach (FieldInfo fieldInfo in fieldInfos)
-        //        {
-        //            data2 += fieldInfo.GetValue(v)+",";
-        //        }
-        //        sw.WriteLine(data2);
-        //        data2 = "";
-        //    }
-
-        //    /*data = N[0].Name+","+ N[0].Score;
-            
-        //    data = N[1].Name + "," + N[1].Score;
-        //    sw.WriteLine(data);
-        //    data = N[2].Name + "," + N[2].Score;
-        //    sw.WriteLine(data);*/
-
-        //    sw.Close();
-        //    fs.Close();
-        //}
-
-        //public struct grade2
-        //{
-        //    public string Name;
-        //    public int Score;
-        //}
-        //public void Add(string name, int score)
-        //{
-        //    grade2 temp = new grade2();
-        //    temp.Name = name;
-        //    temp.Score = score;
-        //    N.Add(temp);
-        //}
     }
 }
